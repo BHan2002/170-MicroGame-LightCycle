@@ -1,33 +1,45 @@
 using UnityEngine;
+using System.Collections;
 
-// Script to manage the grid and it's cells, including creating the grid and handling cell interactions
 public class Grid : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // TODO: 2D array of cells {'safe', 'warning','falling', 'gone'} and instantiate the cell prefabs based on the state of each cell
-    // configurable grid size 20x20, cell size 1 unit.
-    [SerializeField] private int width = 20;
-    [SerializeField] private int height = 20;
-    [SerializeField] private float cellSize = 1f;
+    [SerializeField] private GridRenderer gridRenderer;
 
-    CellState[,] grid; // 2D array to hold the state of each cell
-
-    GridRenderer gridRenderer;
-    
-    // Static colors — promote to a ScriptableObject later if you want
-    static readonly Color COL_SAFE    = new Color(0.00f, 0.60f, 0.80f, 1f);
-    static readonly Color COL_WARNING = new Color(1.00f, 0.10f, 0.10f, 1f);
-    static readonly Color COL_FALLING = new Color(1.00f, 0.40f, 0.00f, 1f);
-    static readonly Color COL_TRAIL   = new Color(0.00f, 1.00f, 0.80f, 1f);
+    [SerializeField] private float startDelay = 3f;
+    [SerializeField] private float warningTime = 1.5f;
+    [SerializeField] private float fallingTime = 0.75f;
+    [SerializeField] private float timeBetweenCells = 0.5f;
 
     void Start()
     {
-        
+        if (gridRenderer == null)
+        {
+            gridRenderer = FindFirstObjectByType<GridRenderer>();
+        }
+
+        StartCoroutine(DisappearCellsOverTime());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator DisappearCellsOverTime()
     {
-        
+        yield return new WaitForSeconds(startDelay);
+
+        while (true)
+        {
+            int x = Random.Range(0, gridRenderer.width);
+            int z = Random.Range(0, gridRenderer.height);
+
+            gridRenderer.SetCellState(x, z, CellState.Warning);
+
+            yield return new WaitForSeconds(warningTime);
+
+            gridRenderer.SetCellState(x, z, CellState.Falling);
+
+            yield return new WaitForSeconds(fallingTime);
+
+            gridRenderer.SetCellState(x, z, CellState.Gone);
+
+            yield return new WaitForSeconds(timeBetweenCells);
+        }
     }
 }

@@ -9,8 +9,8 @@ public struct CellInstance {
 }
 
 public class GridRenderer : MonoBehaviour {
-    public int width  = 20;
-    public int height = 20;
+    public int width  = 10;
+    public int height = 10;
     public float cellSize = 1f;
 
     Mesh quad;
@@ -23,8 +23,14 @@ public class GridRenderer : MonoBehaviour {
     Vector4[]   uvs;
     int count;
 
+    CellState[] states;
+    Vector3[] positions;
+
     void Start() {
         quad = MakeQuad();
+
+        states = new CellState[width * height];
+        positions = new Vector3[width * height];
 
         // URP/Lit works, but for a neon look use URP/Unlit with emission
         var shader = Shader.Find("Custom/InstancedUnlit");
@@ -59,22 +65,29 @@ public class GridRenderer : MonoBehaviour {
         for (int x = 0; x < width; x++) {
             for (int z = 0; z < height; z++) {
                 var pos = new Vector3(x * cellSize, 0, z * cellSize);
-                matrices[count] = Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * (cellSize * 0.95f));
-                colors[count]   = new Vector4(0f, 0.8f, 1f, 1f); // cyan safe
+                positions[count] = pos;
+                matrices[count] = Matrix4x4.TRS(
+                    pos,
+                    Quaternion.identity,
+                    Vector3.one * (cellSize * 0.95f)
+                );
+                states[count] = CellState.Safe;
+                colors[count] = GetColorForState(CellState.Safe, 0f);
                 uvs[count]      = Vector4.zero;
                 count++;
             }
         }
     }
 
-    void Update() {
-        // Push per-instance data
-        mpb.SetVectorArray("_BaseColor",   colors);
-        mpb.SetVectorArray("_UVOffset",    uvs);
+    void Update()
+    {
+        UpdateCellColors();
+
+        mpb.SetVectorArray("_BaseColor", colors);
+        mpb.SetVectorArray("_UVOffset", uvs);
 
         rp.matProps = mpb;
 
-        // One call draws all 400 cells
         Graphics.RenderMeshInstanced(rp, quad, 0, matrices, count);
     }
 
@@ -96,9 +109,61 @@ public class GridRenderer : MonoBehaviour {
     }
 
     // Call this from your game logic when a cell's state changes
-    public void SetCellColor(int x, int z, Color c) {
+   public void SetCellState(int x, int z, CellState state)
+    {
         if (x < 0 || x >= width || z < 0 || z >= height) return;
+
         int i = x * height + z;
-        colors[i] = c;
+
+        states[i] = state;
+
+        Vector3 scale =
+            state == CellState.Gone
+            ? Vector3.zero
+            : Vector3.one * (cellSize * 0.95f);
+
+        matrices[i] = Matrix4x4.TRS(
+            positions[i],
+            Quaternion.identity,
+            scale
+        );
+    }
+
+    void UpdateCellColors()
+    {
+        float flash = Mathf.PingPong(Time.time * 8f, 1f);
+
+        for (int i = 0; i < count; i++)
+        {
+            colors[i] = GetColorForState(states[i], flash);
+        }
+    }
+
+    Vector4 GetColorForState(CellState state, float flash)
+    {
+        switch (state)
+        {
+            case CellState.Safe:
+                return new Vector4(0.00f, 0.00f, 0.00f, 1f); // dark grid
+
+            case CellState.Warning:
+                return new Vector4(1f, 0f, 0f, 1f); // red
+
+            case CellState.Falling:
+                return Vector4.Lerp(
+                    new Vector4(1f, 0f, 0f, 1f),
+                    new Vector4(1f, 1f, 1f, 1f),
+                    flash
+                ); // flashing
+
+            case CellState.Gone:
+                return new Vector4(1f, 1f, 1f, 1f); // invisible, if shader supports alpha
+
+            case CellState.Trail:
+                return new Vector4(0f, 1f, 0.8f, 1f);
+
+            default:
+                return Vector4.one;
+        }
     }
 }

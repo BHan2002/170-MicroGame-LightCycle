@@ -8,9 +8,9 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 - [X] Set up `Assets/Scenes/`, `Scripts/`, `Prefabs/`, `Materials/`, `Audio/`
 - [X] `GridManager` script: 2D array of `Cell { Safe, Warning, Falling, Gone }`, configurable size 20×20, cell size 1
 - [X] Render grid at runtime with InstancedMeshRenderer (one mesh, GPU instances — perf matters)
-- [ ] Cell colors: Safe = dark grid line, Warning = red, Falling = flashing, Gone = invisible
-- [ ] Editor gizmo to draw grid bounds in Scene view
-- [ ] Smoke test: confirm grid shows, colors switch on a key press
+- [X] Cell colors: Safe = dark grid line, Warning = red, Falling = flashing, Gone = invisible
+- [X] Editor gizmo to draw grid bounds in Scene view
+- [X] Smoke test: confirm grid shows, colors switch on a key press
 
 ## Day 2 — The 30s fall
 
