@@ -932,7 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   trailPrefab: {fileID: 2120369740340566361, guid: f32fb85eeb7ef484281633efe62e4712, type: 3}
   cellSize: 1
-  moveCooldown: 0.12
+  moveCooldown: 0.1
   gridRenderer: {fileID: 909973772}
   loseScreen: {fileID: 1059523507}
 --- !u!96 &985155097

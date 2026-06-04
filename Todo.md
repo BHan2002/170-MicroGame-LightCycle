@@ -30,11 +30,11 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
   - Current cell is `Gone` → Death
   - Current cell is already `trail` from a previous lap → Death
 - [~] Death = slow-mo 0.3s, red flash, freeze, game over screen
-- [ ] **Day 3 milestone:** you can play and lose on purpose. If you can do that, the rest is polish.
+- [X] **Day 3 milestone:** you can play and lose on purpose. If you can do that, the rest is polish.
 
 ## Day 4 — Score, win/lose, restart
 
-- [ ] Score = tiles traversed + (survival bonus if you reach 10s timer alive = 1000)
+- [ ] Score = tiles traversed + (survival bonus if you reach var seconds timer alive = 1000)
 - [ ] HUD: top-left timer, top-right score, both readable against the neon
 - [ ] Game states enum: `Menu, Playing, GameOver, Win`
 - [ ] `GameManager` controls state, restart reloads scene or resets grid
@@ -42,13 +42,7 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 - [ ] Game Over screen: "YOU FELL" / "TRAIL HIT" (one of two, tells player why), final score, "AGAIN" button
 - [ ] Win screen: "SURVIVED" with score, "AGAIN" button
 
-## Day 5 — Feel pass (this is where the game becomes good)
-
-- [ ] Bloom on URP, set emissive on player + trail + warning cells
-- [ ] Player rotation: smoothly face direction of last move (no snapping)
-- [ ] Camera: light follow (lerp toward player), small shake on death
-- [ ] Trail color: cyan/magenta gradient based on speed
-- [ ] Background: starfield or moving grid (one shader, no assets)
+## Day 5 — Feel pass (this is where the game becomes good) [Cut Due to time]
 - [ ] Pause menu (Esc) — required for the "1-minute understandability" rule
 
 ## Day 6 — Audio + leaderboard

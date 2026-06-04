@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {   [SerializeField] private GameObject trailPrefab;
     [SerializeField] private float cellSize = 1f;
-    [SerializeField] private float moveCooldown = 0.12f;
+    [SerializeField] private float moveCooldown = 0.10f;
     [SerializeField] private GridRenderer gridRenderer;
 
     [SerializeField] private GameObject loseScreen;
@@ -51,6 +52,9 @@ public class PlayerController : MonoBehaviour
 
         if (IsDeathCell(nextCell))
         {
+            // Shake the screen, play a sound, and turn the screen slowly red;
+            // Then delay and activate the lose screen
+            StartCoroutine(DeathSequence(30.0f));
             Die();
             return;
         }
@@ -71,9 +75,6 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         isDead = true;
-        // Shake the screen, play a sound, and turn the screen slowly red;
-        // Then delay and activate the lose screen
-        StartCoroutine(DeathSequence(2.0f));
         
         loseScreen.SetActive(true);
         Time.timeScale = 0f;
@@ -93,14 +94,20 @@ public class PlayerController : MonoBehaviour
     
     void ReadTurnInput()
     {
+        Vector3 desiredDirection = currentDirection;
+
         if (Keyboard.current.wKey.wasPressedThisFrame || Keyboard.current.upArrowKey.wasPressedThisFrame)
-            nextDirection = Vector3.forward;
+            desiredDirection = Vector3.forward;
         else if (Keyboard.current.sKey.wasPressedThisFrame || Keyboard.current.downArrowKey.wasPressedThisFrame)
-            nextDirection = Vector3.back;
+            desiredDirection = Vector3.back;
         else if (Keyboard.current.aKey.wasPressedThisFrame || Keyboard.current.leftArrowKey.wasPressedThisFrame)
-            nextDirection = Vector3.left;
+            desiredDirection = Vector3.left;
         else if (Keyboard.current.dKey.wasPressedThisFrame || Keyboard.current.rightArrowKey.wasPressedThisFrame)
-            nextDirection = Vector3.right;
+            desiredDirection = Vector3.right;
+
+        // Stop user input if trying to reverse direction immediately
+        if (desiredDirection != currentDirection && desiredDirection != -currentDirection)
+            nextDirection = desiredDirection;
     }
 
     void SnapToGrid()

@@ -23,7 +23,7 @@ public class Timer : MonoBehaviour
 
         timeLeft -= Time.deltaTime;
         
-        if (timeLeft <= 0.25f)
+        if (timeLeft <= 0.12f)
         {
             winScreenManager.ShowWinScreen();
             hasWon = true;
