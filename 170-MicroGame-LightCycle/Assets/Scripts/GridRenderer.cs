@@ -26,28 +26,25 @@ public class GridRenderer : MonoBehaviour {
     CellState[] states;
     Vector3[] positions;
 
-    void Start() {
+    void Awake() {
         quad = MakeQuad();
 
-        states = new CellState[width * height];
-        positions = new Vector3[width * height];
-
-        // URP/Lit works, but for a neon look use URP/Unlit with emission
         var shader = Shader.Find("Custom/InstancedUnlit");
         if (shader == null)
         {
             Debug.LogError("Could not find Custom/InstancedUnlit shader!");
             return;
         }
+
         mat = new Material(shader);
-        // The instance properties we want to use MUST be declared in the shader
-        // (we'll set this up in step 3). For now, assume _BaseColor exists.
         mat.enableInstancing = true;
 
         matrices = new Matrix4x4[width * height];
         colors   = new Vector4  [width * height];
         uvs      = new Vector4  [width * height];
         mpb      = new MaterialPropertyBlock();
+        states = new CellState[width * height];
+        positions = new Vector3[width * height];
 
         BuildGrid();
 
@@ -66,12 +63,14 @@ public class GridRenderer : MonoBehaviour {
             for (int z = 0; z < height; z++) {
                 var pos = new Vector3(x * cellSize, 0, z * cellSize);
                 positions[count] = pos;
+                states[count] = CellState.Safe;
+                
                 matrices[count] = Matrix4x4.TRS(
                     pos,
                     Quaternion.identity,
                     Vector3.one * (cellSize * 0.95f)
                 );
-                states[count] = CellState.Safe;
+                
                 colors[count] = GetColorForState(CellState.Safe, 0f);
                 uvs[count]      = Vector4.zero;
                 count++;
@@ -157,7 +156,7 @@ public class GridRenderer : MonoBehaviour {
                 ); // flashing
 
             case CellState.Gone:
-                return new Vector4(1f, 1f, 1f, 1f); // invisible, if shader supports alpha
+                return Vector4.zero; // invisible, if shader supports alpha
 
             case CellState.Trail:
                 return new Vector4(0f, 1f, 0.8f, 1f);

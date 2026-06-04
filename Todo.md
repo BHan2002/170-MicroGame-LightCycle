@@ -14,10 +14,8 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 ## Day 2 — The 30s fall
 
-- [ ] `FallScheduler` with a single public method `BeginFall(float duration = 30f)`
-- [ ] Curve-driven warning times: at 30s mark outer ring Warning, at 20s mark ring 2, at 10s mark ring 3, at 0s mark center
-  - Or simpler: **random tiles** go Warning at a steady rate so the player has to keep moving
-- [ ] Warning → 0.5s shake → Falling (red flash + scale) → Gone (despawn + particle)
+- [X] Curve-driven warning times: at 30s mark outer ring Warning, at 20s mark ring 2, at 10s mark ring 3, at 0s mark center
+- [X] Warning → 0.5s shake → Falling (red flash + scale) → Gone (despawn + particle)
 - [ ] 30s countdown timer in the corner of the HUD
 - [ ] On timer = 0, trigger Win
 - [ ] Vibe check: is the timing tense? Tune shake/fall duration until it feels right
