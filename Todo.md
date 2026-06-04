@@ -6,8 +6,8 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 - [X] Create Unity 6 URP project, name it, save scene as `Main`
 - [X] Set up `Assets/Scenes/`, `Scripts/`, `Prefabs/`, `Materials/`, `Audio/`
-- [ ] `GridManager` script: 2D array of `Cell { Safe, Warning, Falling, Gone }`, configurable size 20×20, cell size 1
-- [ ] Render grid at runtime with InstancedMeshRenderer (one mesh, GPU instances — perf matters)
+- [X] `GridManager` script: 2D array of `Cell { Safe, Warning, Falling, Gone }`, configurable size 20×20, cell size 1
+- [X] Render grid at runtime with InstancedMeshRenderer (one mesh, GPU instances — perf matters)
 - [ ] Cell colors: Safe = dark grid line, Warning = red, Falling = flashing, Gone = invisible
 - [ ] Editor gizmo to draw grid bounds in Scene view
 - [ ] Smoke test: confirm grid shows, colors switch on a key press

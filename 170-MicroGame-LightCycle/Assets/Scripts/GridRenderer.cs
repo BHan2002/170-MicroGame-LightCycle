@@ -20,23 +20,27 @@ public class GridRenderer : MonoBehaviour {
 
     Matrix4x4[] matrices;
     Vector4[]   colors;
-    Vector2[]   uvs;
+    Vector4[]   uvs;
     int count;
 
     void Start() {
         quad = MakeQuad();
 
         // URP/Lit works, but for a neon look use URP/Unlit with emission
-        var shader = Shader.Find("Universal Render Pipeline/Unlit");
+        var shader = Shader.Find("Custom/InstancedUnlit");
+        if (shader == null)
+        {
+            Debug.LogError("Could not find Custom/InstancedUnlit shader!");
+            return;
+        }
         mat = new Material(shader);
-
         // The instance properties we want to use MUST be declared in the shader
         // (we'll set this up in step 3). For now, assume _BaseColor exists.
         mat.enableInstancing = true;
 
         matrices = new Matrix4x4[width * height];
         colors   = new Vector4  [width * height];
-        uvs      = new Vector2  [width * height];
+        uvs      = new Vector4  [width * height];
         mpb      = new MaterialPropertyBlock();
 
         BuildGrid();
@@ -57,7 +61,7 @@ public class GridRenderer : MonoBehaviour {
                 var pos = new Vector3(x * cellSize, 0, z * cellSize);
                 matrices[count] = Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * (cellSize * 0.95f));
                 colors[count]   = new Vector4(0f, 0.8f, 1f, 1f); // cyan safe
-                uvs[count]      = Vector2.zero;
+                uvs[count]      = Vector4.zero;
                 count++;
             }
         }
@@ -67,6 +71,8 @@ public class GridRenderer : MonoBehaviour {
         // Push per-instance data
         mpb.SetVectorArray("_BaseColor",   colors);
         mpb.SetVectorArray("_UVOffset",    uvs);
+
+        rp.matProps = mpb;
 
         // One call draws all 400 cells
         Graphics.RenderMeshInstanced(rp, quad, 0, matrices, count);
@@ -91,8 +97,8 @@ public class GridRenderer : MonoBehaviour {
 
     // Call this from your game logic when a cell's state changes
     public void SetCellColor(int x, int z, Color c) {
+        if (x < 0 || x >= width || z < 0 || z >= height) return;
         int i = x * height + z;
-        if (i < 0 || i >= count) return;
         colors[i] = c;
     }
 }
