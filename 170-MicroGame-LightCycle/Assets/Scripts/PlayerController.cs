@@ -1,15 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {   [SerializeField] private GameObject trailPrefab;
     [SerializeField] private float cellSize = 1f;
     [SerializeField] private float moveCooldown = 0.12f;
+    [SerializeField] private GridRenderer gridRenderer;
+
+    [SerializeField] private GameObject loseScreen;
 
     private Vector3 currentDirection = Vector3.forward;
     private Vector3 nextDirection = Vector3.forward;
 
     private float moveTimer;
+
+    private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>();
+    private bool isDead = false;
     
     void Start()
     {
@@ -18,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
+        
         ReadTurnInput();
 
         moveTimer += Time.deltaTime;
@@ -25,21 +34,61 @@ public class PlayerController : MonoBehaviour
         if (moveTimer >= moveCooldown)
         {
             moveTimer = 0f;
+            MoveOneCell();
+        }
+    }
 
-        // leave trail at the current grid cell
-        if (trailPrefab != null)
+    void MoveOneCell()
+    {
+        Vector2Int currentCell = GetGridPosition();
+
+        Instantiate(trailPrefab, transform.position, Quaternion.identity);
+        occupiedCells.Add(currentCell);
+
+        currentDirection = nextDirection;
+        Vector3 nextPosition = transform.position + currentDirection * cellSize;
+        Vector2Int nextCell = WorldToGrid(nextPosition);
+
+        if (IsDeathCell(nextCell))
         {
-            Instantiate(trailPrefab, transform.position, Quaternion.identity);
+            Die();
+            return;
         }
 
-            currentDirection = nextDirection;
-            transform.position += currentDirection * cellSize;
-            SnapToGrid();
-        }
+        transform.position = nextPosition;
+        SnapToGrid();
+    }
 
-        // Mark the current position with a trail
-        // For simplicity, we can just instantiate a cube at the current position
+    bool IsDeathCell(Vector2Int cell)
+    {
+        if (cell.x < 0 || cell.x >= gridRenderer.width) return true;
+        if (cell.y < 0 || cell.y >= gridRenderer.height) return true;
+        if (occupiedCells.Contains(cell)) return true;
+
+        return false;
+    }
+
+    void Die()
+    {
+        isDead = true;
+        // Shake the screen, play a sound, and turn the screen slowly red;
+        // Then delay and activate the lose screen
+        StartCoroutine(DeathSequence(2.0f));
         
+        loseScreen.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    Vector2Int GetGridPosition()
+    {
+        return WorldToGrid(transform.position);
+    }
+
+    Vector2Int WorldToGrid(Vector3 position)
+    {
+        int x = Mathf.RoundToInt(position.x / cellSize);
+        int z = Mathf.RoundToInt(position.z / cellSize);
+        return new Vector2Int(x, z);
     }
     
     void ReadTurnInput()
@@ -61,5 +110,16 @@ public class PlayerController : MonoBehaviour
         position.y = Mathf.Round(position.y / cellSize) * cellSize;
         position.z = Mathf.Round(position.z / cellSize) * cellSize;
         transform.position = position;
+    }
+
+    IEnumerator DeathSequence(float delay)
+    {
+        // Implement screen shake, sound, and red tint here
+        // For example:
+        // - Shake: Randomly offset the camera position for a short duration
+        // - Sound: Play a death sound effect
+        // - Red Tint: Overlay a semi-transparent red image on the screen and fade it in
+
+        yield return new WaitForSeconds(delay); // Wait for the specified delay before showing the lose screen
     }
 }

@@ -26,10 +26,10 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 - [X] Player is a glowing cube with a TrailRenderer behind it
 - [X] Trail grows as you move; older trail fades but stays solid for collision
 - [X] On movement, mark your current cell as "trail"
-- [ ] Death checks (run every frame, early-out is fine for 20×20):
+- [X] Death checks (run every frame, early-out is fine for 20×20):
   - Current cell is `Gone` → Death
   - Current cell is already `trail` from a previous lap → Death
-- [ ] Death = slow-mo 0.3s, red flash, freeze, game over screen
+- [~] Death = slow-mo 0.3s, red flash, freeze, game over screen
 - [ ] **Day 3 milestone:** you can play and lose on purpose. If you can do that, the rest is polish.
 
 ## Day 4 — Score, win/lose, restart
