@@ -22,10 +22,10 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 ## Day 3 — Player + trail
 
-- [ ] Input System: WASD/arrow keys for 4-dir movement, snap to grid
-- [ ] Player is a glowing cube with a TrailRenderer behind it
-- [ ] Trail grows as you move; older trail fades but stays solid for collision
-- [ ] On movement, mark your current cell as "trail"
+- [X] Input System: WASD/arrow keys for 4-dir movement, snap to grid
+- [X] Player is a glowing cube with a TrailRenderer behind it
+- [X] Trail grows as you move; older trail fades but stays solid for collision
+- [X] On movement, mark your current cell as "trail"
 - [ ] Death checks (run every frame, early-out is fine for 20×20):
   - Current cell is `Gone` → Death
   - Current cell is already `trail` from a previous lap → Death
