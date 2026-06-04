@@ -16,9 +16,9 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 - [X] Curve-driven warning times: at 30s mark outer ring Warning, at 20s mark ring 2, at 10s mark ring 3, at 0s mark center
 - [X] Warning → 0.5s shake → Falling (red flash + scale) → Gone (despawn + particle)
-- [ ] 30s countdown timer in the corner of the HUD
-- [ ] On timer = 0, trigger Win
-- [ ] Vibe check: is the timing tense? Tune shake/fall duration until it feels right
+- [X] 30s countdown timer in the corner of the HUD
+- [X] On timer = 5, trigger Win
+- [X] Vibe check: is the timing tense? Tune shake/fall duration until it feels right
 
 ## Day 3 — Player + trail
 
@@ -27,14 +27,14 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 - [ ] Trail grows as you move; older trail fades but stays solid for collision
 - [ ] On movement, mark your current cell as "trail"
 - [ ] Death checks (run every frame, early-out is fine for 20×20):
-  - Current cell is `Falling` or `Gone` → Death
+  - Current cell is `Gone` → Death
   - Current cell is already `trail` from a previous lap → Death
 - [ ] Death = slow-mo 0.3s, red flash, freeze, game over screen
 - [ ] **Day 3 milestone:** you can play and lose on purpose. If you can do that, the rest is polish.
 
 ## Day 4 — Score, win/lose, restart
 
-- [ ] Score = tiles traversed + (survival bonus if you reach 0s timer alive = 1000)
+- [ ] Score = tiles traversed + (survival bonus if you reach 10s timer alive = 1000)
 - [ ] HUD: top-left timer, top-right score, both readable against the neon
 - [ ] Game states enum: `Menu, Playing, GameOver, Win`
 - [ ] `GameManager` controls state, restart reloads scene or resets grid
