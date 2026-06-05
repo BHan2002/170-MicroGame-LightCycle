@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         // Start the game in the menu state, waiting for player input to begin
         Time.timeScale = 1f;
         SetGameState(GameState.Menu);
+        //leaderboardManager.ResetLeaderboard();
+        leaderboardScreen.SetActive(true);
         //leaderboardManager.AddEntry("AAA", 110);
 
     }
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
+        leaderboardScreen.SetActive(false);
         SetGameState(GameState.Playing);
         // Play the runner audio when the game starts and loop it
         audioManager.PlayRunnerAudio();
@@ -79,6 +82,7 @@ public class GameManager : MonoBehaviour
     {
         
         winFinalScoreText.text = "Final Score: " + scoreHandler.GetScore();
+        scoreHandler.currentScore += 1000;
         HandleFinalScore();
         SetGameState(GameState.Won);
         

@@ -64,4 +64,9 @@ public class LeaderboardManager : MonoBehaviour
         Debug.Log(json);
         Data = JsonUtility.FromJson<LeaderboardData>(json);
     }
+    public void ResetLeaderboard()
+    {
+        Data = new LeaderboardData();
+        Save();
+    }
 }

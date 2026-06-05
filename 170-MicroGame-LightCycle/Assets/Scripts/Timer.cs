@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour
 
         timeLeft -= Time.deltaTime;
         
-        if (timeLeft <= 0.12f)
+        if (timeLeft <= 1.35f)
         {
             gameManager.WinGame();
             hasWon = true;

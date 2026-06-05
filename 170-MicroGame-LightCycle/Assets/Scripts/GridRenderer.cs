@@ -12,7 +12,7 @@ public class GridRenderer : MonoBehaviour {
     public int width  = 10;
     public int height = 10;
     public float cellSize = 1f;
-
+    [SerializeField] private Material gridMaterial;
     Mesh quad;
     Material mat;
     MaterialPropertyBlock mpb;
@@ -29,14 +29,13 @@ public class GridRenderer : MonoBehaviour {
     void Awake() {
         quad = MakeQuad();
 
-        var shader = Shader.Find("Custom/InstancedUnlit");
-        if (shader == null)
+        if (gridMaterial == null)
         {
-            Debug.LogError("Could not find Custom/InstancedUnlit shader!");
+            Debug.LogError("Grid Material is not assigned!");
             return;
         }
 
-        mat = new Material(shader);
+        mat = new Material(gridMaterial);
         mat.enableInstancing = true;
 
         matrices = new Matrix4x4[width * height];
@@ -79,16 +78,27 @@ public class GridRenderer : MonoBehaviour {
     }
 
     void Update()
+{
+    UpdateCellColors();
+
+    for (int i = 0; i < count; i++)
     {
-        UpdateCellColors();
+        MaterialPropertyBlock cellBlock = new MaterialPropertyBlock();
 
-        mpb.SetVectorArray("_BaseColor", colors);
-        mpb.SetVectorArray("_UVOffset", uvs);
+        cellBlock.SetVector("_BaseColor", colors[i]);
+        cellBlock.SetVector("_UVOffset", uvs[i]);
 
-        rp.matProps = mpb;
-
-        Graphics.RenderMeshInstanced(rp, quad, 0, matrices, count);
+        Graphics.DrawMesh(
+            quad,
+            matrices[i],
+            mat,
+            gameObject.layer,
+            null,
+            0,
+            cellBlock
+        );
     }
+}
 
     Mesh MakeQuad() {
         var m = new Mesh();
