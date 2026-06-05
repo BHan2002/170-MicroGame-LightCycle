@@ -6,7 +6,7 @@ using System.Collections;
 public class ScoreHandler : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private int currentScore = 0;
+    public int currentScore = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

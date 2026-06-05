@@ -49,21 +49,22 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 - [X] Free synthwave loop (or a single oscillator in code) for BG music, low volume, loops: 
 
-Credits: Music by Ievgen Poltavskyi from Pixabay
-Sound Effects by Lumora Studios, floraphonic, Lesiakower, and R0T0R from Pixabay
+Credits: 
+Music by Ievgen Poltavskyi from Pixabay
+Sound Effects by Tron(1982) and Lumora Studios from Pixabay
 - [X] SFX: move tick, trail spawn, tile warning (low pulse), tile fall (boom), death (whoosh)
-- [ ] **Local leaderboard, 30 minutes max:**
+- [X] **Local leaderboard, 30 minutes max:**
   - On Win/GameOver, if score > lowest of top 5, show name-entry (3 letters, tron-style)
   - Store as JSON in `Application.persistentDataPath`
   - Leaderboard scene/screen with top 5
-- [ ] Settings: volume slider, fullscreen toggle
+- [CUT] Settings: volume slider, fullscreen toggle
 
 ## Day 7 — Ship
 
 - [ ] Build target decided (PC build for class, probably)
-- [ ] Window title, icon (placeholder Unity logo is fine)
+- [X] Window title, icon (placeholder Unity logo is fine)
 - [CUT] Title screen art (one neon title text, free font like Orbitron)
-- [ ] Play 10 runs back-to-back, fix the worst jank
+- [X] Play 10 runs back-to-back, fix the worst jank
 - [ ] README.md in repo with controls + the one rule
 - [ ] Build, copy to a known folder, test on a clean machine if possible
 
