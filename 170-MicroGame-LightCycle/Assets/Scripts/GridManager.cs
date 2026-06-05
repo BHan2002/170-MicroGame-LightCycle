@@ -14,6 +14,8 @@ public class Grid : MonoBehaviour
     [SerializeField] private float warningDuration = 1.5f;
     [SerializeField] private float fallingDuration = 0.75f;
 
+    [SerializeField] private AudioManager audioManager;
+
     IEnumerator Start()
     {
         if (gridRenderer == null)
@@ -25,6 +27,7 @@ public class Grid : MonoBehaviour
         // StartCoroutine(DisappearCellsOverTime());
         StartCoroutine(SpiralCollapse());
     }
+
 
     IEnumerator DisappearCellsOverTime()
     {
@@ -80,6 +83,8 @@ public class Grid : MonoBehaviour
         yield return new WaitForSeconds(fallingDuration);
 
         gridRenderer.SetCellState(x, z, CellState.Gone);
+  
+
     }
     List<Vector2Int> GenerateSpiralOrder(int width, int height)
     {

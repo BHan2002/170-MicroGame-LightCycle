@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameManager gameManager;
 
     [SerializeField] private ScoreHandler scoreHandler;
+    [SerializeField] private AudioManager audioManager;
 
     private Vector3 currentDirection = Vector3.forward;
     private Vector3 nextDirection = Vector3.forward;
@@ -60,6 +61,11 @@ public class PlayerController : MonoBehaviour
         Instantiate(trailPrefab, transform.position, Quaternion.identity);
         occupiedCells.Add(currentCell);
 
+        if (currentDirection != nextDirection)
+        {
+            audioManager.PlayTileFall();
+        }
+
         currentDirection = nextDirection;
         Vector3 nextPosition = transform.position + currentDirection * cellSize;
         Vector2Int nextCell = WorldToGrid(nextPosition);
@@ -91,6 +97,7 @@ public class PlayerController : MonoBehaviour
     }
     void Die()
     {
+        audioManager.PlayDeathCrunch();
         isDead = true;
         gameManager.LoseGame();
     }

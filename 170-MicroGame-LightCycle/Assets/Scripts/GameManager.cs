@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScoreHandler scoreHandler;
     [SerializeField] private TextMeshProUGUI winFinalScoreText;
     [SerializeField] private TextMeshProUGUI loseFinalScoreText;
+    [SerializeField] private AudioManager audioManager;
     public enum GameState
     {
         Playing,
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SetGameState(GameState.Playing);
+        // Play the runner audio when the game starts and loop it
+        audioManager.PlayRunnerAudio();
     }
 
     public void RestartGame()

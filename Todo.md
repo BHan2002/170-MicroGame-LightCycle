@@ -47,8 +47,11 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 ## Day 6 — Audio + leaderboard
 
-- [ ] Free synthwave loop (or a single oscillator in code) for BG music, low volume, loops
-- [ ] SFX: move tick, trail spawn, tile warning (low pulse), tile fall (boom), death (whoosh)
+- [X] Free synthwave loop (or a single oscillator in code) for BG music, low volume, loops: 
+
+Credits: Music by Ievgen Poltavskyi from Pixabay
+Sound Effects by Lumora Studios, floraphonic, Lesiakower, and R0T0R from Pixabay
+- [X] SFX: move tick, trail spawn, tile warning (low pulse), tile fall (boom), death (whoosh)
 - [ ] **Local leaderboard, 30 minutes max:**
   - On Win/GameOver, if score > lowest of top 5, show name-entry (3 letters, tron-style)
   - Store as JSON in `Application.persistentDataPath`
