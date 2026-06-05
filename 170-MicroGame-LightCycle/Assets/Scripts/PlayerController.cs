@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         {
             // Shake the screen, play a sound, and turn the screen slowly red;
             // Then delay and activate the lose screen
-            StartCoroutine(DeathSequence(30.0f));
+            StartCoroutine(DeathSequence(50.0f));
             Die();
             return;
         }
