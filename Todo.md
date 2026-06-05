@@ -37,13 +37,13 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 - [X] Score = tiles traversed + (survival bonus if you reach var seconds timer alive = 1000)
 - [X] HUD: top-left timer, top-right score, both readable against the neon
 - [X] Game states enum: `Menu, Playing, GameOver, Win`
-- [ ] `GameManager` controls state, restart reloads scene or resets grid
-- [ ] Main menu: title, "PLAY", "QUIT" — placeholder art is fine
-- [ ] Game Over screen: "YOU FELL" / "TRAIL HIT" (one of two, tells player why), final score, "AGAIN" button
-- [ ] Win screen: "SURVIVED" with score, "AGAIN" button
+- [X] `GameManager` controls state, restart reloads scene or resets grid
+- [X] Main menu: title, "PLAY", "QUIT" — placeholder art is fine
+- [X] Game Over screen: final score, "AGAIN" button
+- [X] Win screen: "SURVIVED" with score, "AGAIN" button
 
 ## Day 5 — Feel pass (this is where the game becomes good) [Cut Due to time]
-- [ ] Pause menu (Esc) — required for the "1-minute understandability" rule
+- [RIP] Pause menu (Esc) — required for the "1-minute understandability" rule
 
 ## Day 6 — Audio + leaderboard
 
@@ -59,18 +59,11 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 - [ ] Build target decided (PC build for class, probably)
 - [ ] Window title, icon (placeholder Unity logo is fine)
-- [ ] Title screen art (one neon title text, free font like Orbitron)
+- [CUT] Title screen art (one neon title text, free font like Orbitron)
 - [ ] Play 10 runs back-to-back, fix the worst jank
 - [ ] README.md in repo with controls + the one rule
 - [ ] Build, copy to a known folder, test on a clean machine if possible
 
-## What to cut first if you fall behind
-
-1. **Day 6 leaderboard** → ship without it, add a "Best: XXX" line in HUD using `PlayerPrefs` (5 min)
-2. **Pause menu** → skip, just don't pause
-3. **Win screen** → just say "SURVIVED" over the running game with restart button
-4. **Camera shake / starfield** → leave defaults
-5. **Name entry** → just save score, no name
 
 ## What to add only if you're ahead
 
@@ -79,7 +72,3 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 - A second player on shared keyboard (local hot-seat, ~2 hours)
 
 ---
-
-Want me to:
-- Write the **GridManager** or **FallScheduler** script to get you started?
-- Set up the **Unity `.gitignore` + `.gitattributes`** so you can push Day 1's work tonight?
