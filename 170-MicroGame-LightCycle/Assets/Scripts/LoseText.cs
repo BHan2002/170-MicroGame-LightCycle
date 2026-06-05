@@ -8,7 +8,7 @@ public class LoseText : MonoBehaviour
     void OnEnable()
     {
         loseText.color = new Color(loseText.color.r, loseText.color.g, loseText.color.b, 1f);
-        loseText.text = "You Lose!";
+        loseText.text = "Game Over";
         StartCoroutine(TypeEffect(loseText, loseText.text, 0.05f));
     }
 

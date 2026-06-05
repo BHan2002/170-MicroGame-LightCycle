@@ -29,7 +29,7 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 - [X] Death checks (run every frame, early-out is fine for 20×20):
   - Current cell is `Gone` → Death
   - Current cell is already `trail` from a previous lap → Death
-- [~] Death = slow-mo 0.3s, red flash, freeze, game over screen
+- [CUT] Death = slow-mo 0.3s, red flash, freeze, game over screen
 - [X] **Day 3 milestone:** you can play and lose on purpose. If you can do that, the rest is polish.
 
 ## Day 4 — Score, win/lose, restart

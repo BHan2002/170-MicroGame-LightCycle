@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
 
     [SerializeField] private WinScreenManager winScreenManager;
-    [SerializeField] private ScoreHandler scoreHandler;
+    [SerializeField] private GameManager gameManager;
     private float timeLeft;
 
     private bool hasWon = false;
@@ -26,8 +26,7 @@ public class Timer : MonoBehaviour
         
         if (timeLeft <= 0.12f)
         {
-            scoreHandler.AddScore(1000); // Add a large score bonus for winning
-            winScreenManager.ShowWinScreen();
+            gameManager.WinGame();
             hasWon = true;
         }
         timerText.text = FormatTime(timeLeft);

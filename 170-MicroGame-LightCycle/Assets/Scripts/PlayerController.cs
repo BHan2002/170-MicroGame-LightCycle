@@ -29,7 +29,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (isDead) return;
-        
+
+        Vector2Int currentCell = GetGridPosition();
+
+        if (gridRenderer.IsCellDeadly(currentCell.x, currentCell.y))
+        {
+            gameManager.LoseGame();
+            return;
+        }
+
         ReadTurnInput();
 
         moveTimer += Time.deltaTime;
@@ -40,13 +48,11 @@ public class PlayerController : MonoBehaviour
             MoveOneCell();
         }
 
-        // If player presses R, restart the game
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             gameManager.RestartGame();
         }
     }
-
     void MoveOneCell()
     {
         Vector2Int currentCell = GetGridPosition();
@@ -76,17 +82,17 @@ public class PlayerController : MonoBehaviour
     {
         if (cell.x < 0 || cell.x >= gridRenderer.width) return true;
         if (cell.y < 0 || cell.y >= gridRenderer.height) return true;
+
+        if (gridRenderer.IsCellDeadly(cell.x, cell.y)) return true;
+
         if (occupiedCells.Contains(cell)) return true;
 
         return false;
     }
-
     void Die()
     {
         isDead = true;
-        
-        gameManager.SetGameState(GameManager.GameState.Lost);
-        Time.timeScale = 0f;
+        gameManager.LoseGame();
     }
 
     Vector2Int GetGridPosition()

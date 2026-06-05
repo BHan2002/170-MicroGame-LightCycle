@@ -24,9 +24,14 @@ public class ScoreHandler : MonoBehaviour
     {
         scoreText.text = "Score: " + currentScore;
     }
+    public int GetScore()
+    {
+        return currentScore;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        
     }
 }

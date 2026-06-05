@@ -143,7 +143,8 @@ public class GridRenderer : MonoBehaviour {
         switch (state)
         {
             case CellState.Safe:
-                return new Vector4(0.00f, 0.00f, 0.00f, 1f); // dark grid
+                return new Vector4(0.6f, 0.6f, 0.6f, 0.5f); // green transparent
+
 
             case CellState.Warning:
                 return new Vector4(1f, 0f, 0f, 1f); // red
@@ -165,4 +166,13 @@ public class GridRenderer : MonoBehaviour {
                 return Vector4.one;
         }
     }
+    public bool IsCellDeadly(int x, int z)
+{
+    if (x < 0 || x >= width || z < 0 || z >= height)
+        return true;
+
+    int i = x * height + z;
+
+    return states[i] == CellState.Gone;
+}
 }

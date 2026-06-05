@@ -6,7 +6,7 @@ using TMPro;
 public class WinScreenManager : MonoBehaviour
 {
     [SerializeField]private GameObject winScreen;
-
+    [SerializeField] private GameManager gameManager;
     private void Start()
     {
         winScreen.SetActive(false);

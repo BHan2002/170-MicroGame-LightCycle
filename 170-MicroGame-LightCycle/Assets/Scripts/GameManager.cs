@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
     [SerializeField] private GameObject gameUI;
+    [SerializeField] private ScoreHandler scoreHandler;
+    [SerializeField] private TextMeshProUGUI winFinalScoreText;
+    [SerializeField] private TextMeshProUGUI loseFinalScoreText;
     public enum GameState
     {
         Playing,
@@ -25,7 +30,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Start the game in the menu state, waiting for player input to begin
+        Time.timeScale = 1f;
         SetGameState(GameState.Menu);
+
     }
 
     public void SetGameState(GameState newState)
@@ -40,11 +47,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = newState == GameState.Playing ? 1f : 0f;
 
         if (playerController != null)
-        {
             playerController.enabled = newState == GameState.Playing;
-        }
     }
-
     public void StartGame()
     {
         SetGameState(GameState.Playing);
@@ -52,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -62,12 +67,19 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
+        
+        winFinalScoreText.text = "Final Score: " + scoreHandler.GetScore();
         SetGameState(GameState.Won);
+        
     }
 
     public void LoseGame()
     {
+        
+        loseFinalScoreText.text = "Final Score: " + scoreHandler.GetScore();
+        // activate final score text on lose screen
         SetGameState(GameState.Lost);
+       
     }
 
 
