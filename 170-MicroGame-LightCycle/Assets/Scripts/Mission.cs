@@ -9,7 +9,7 @@ public class Mission : MonoBehaviour
     void Start()
     {
         // Type effect in and out mission text
-        missionText.text = "Mission: Survive as long as you can!";
+        missionText.text = "Mission: Survive!";
         StartCoroutine(TypeEffect(missionText, missionText.text, 0.05f));
     }
 

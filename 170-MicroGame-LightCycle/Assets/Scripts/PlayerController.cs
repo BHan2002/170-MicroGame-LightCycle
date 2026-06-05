@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveCooldown = 0.10f;
     [SerializeField] private GridRenderer gridRenderer;
 
-    [SerializeField] private GameObject loseScreen;
+    [SerializeField] private GameManager gameManager;
+
+    [SerializeField] private ScoreHandler scoreHandler;
 
     private Vector3 currentDirection = Vector3.forward;
     private Vector3 nextDirection = Vector3.forward;
@@ -37,6 +39,12 @@ public class PlayerController : MonoBehaviour
             moveTimer = 0f;
             MoveOneCell();
         }
+
+        // If player presses R, restart the game
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            gameManager.RestartGame();
+        }
     }
 
     void MoveOneCell()
@@ -61,6 +69,7 @@ public class PlayerController : MonoBehaviour
 
         transform.position = nextPosition;
         SnapToGrid();
+        scoreHandler.AddScore(10);
     }
 
     bool IsDeathCell(Vector2Int cell)
@@ -76,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         
-        loseScreen.SetActive(true);
+        gameManager.SetGameState(GameManager.GameState.Lost);
         Time.timeScale = 0f;
     }
 

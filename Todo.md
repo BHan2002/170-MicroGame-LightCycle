@@ -34,9 +34,9 @@ Here's a tight 7-day plan. Scope is "30-second Tron microgame," solo, that you c
 
 ## Day 4 — Score, win/lose, restart
 
-- [ ] Score = tiles traversed + (survival bonus if you reach var seconds timer alive = 1000)
-- [ ] HUD: top-left timer, top-right score, both readable against the neon
-- [ ] Game states enum: `Menu, Playing, GameOver, Win`
+- [X] Score = tiles traversed + (survival bonus if you reach var seconds timer alive = 1000)
+- [X] HUD: top-left timer, top-right score, both readable against the neon
+- [X] Game states enum: `Menu, Playing, GameOver, Win`
 - [ ] `GameManager` controls state, restart reloads scene or resets grid
 - [ ] Main menu: title, "PLAY", "QUIT" — placeholder art is fine
 - [ ] Game Over screen: "YOU FELL" / "TRAIL HIT" (one of two, tells player why), final score, "AGAIN" button
