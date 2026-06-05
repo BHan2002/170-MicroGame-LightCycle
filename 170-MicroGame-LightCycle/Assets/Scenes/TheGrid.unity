@@ -2138,6 +2138,7 @@ MonoBehaviour:
   audioManager: {fileID: 171520157}
   nameEntryScreen: {fileID: 489438802}
   leaderboardScreen: {fileID: 125775144}
+  leaderboardUI: {fileID: 909973785}
 --- !u!114 &909973781
 MonoBehaviour:
   m_ObjectHideFlags: 0

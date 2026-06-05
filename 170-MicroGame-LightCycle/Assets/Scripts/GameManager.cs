@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject nameEntryScreen;
     [SerializeField] private GameObject leaderboardScreen;
+    [SerializeField] private LeaderboardUI leaderboardUI;
     public enum GameState
     {
         Playing,
@@ -106,6 +107,7 @@ public class GameManager : MonoBehaviour
         {
             nameEntryScreen.SetActive(false);
             leaderboardScreen.SetActive(true);
+            leaderboardUI.Refresh();
         }
     }
 
